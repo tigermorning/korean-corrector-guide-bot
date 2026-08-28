@@ -148,6 +148,14 @@ async function refreshEngineBanner() {
 
 el.ollamaRetryBtn.addEventListener("click", refreshEngineBanner);
 
+/** 모델이 인용을 마크다운 링크 [id](경로)로 감싸며 없는 URL을 지어내는 사고가
+ * 실측으로 반복 확인됐다(docs/EXPERIMENTS.md 사이클 4-1) — 프롬프트 지시만으론
+ * 100% 못 막아서, 화면에 보이기 직전 [id]만 남기고 괄호 부분을 결정적으로 없앤다.
+ * 실제 원문 링크는 어차피 출처 칩이 따로 보여준다. */
+function stripFakeCitationLinks(text) {
+  return text.replace(/\[([^\[\]]+)\]\([^()]*\)/g, "[$1]");
+}
+
 function appendMessage(role, text) {
   const div = document.createElement("div");
   div.className = `msg ${role}`;
@@ -319,6 +327,9 @@ async function handleAsk(question) {
       return;
     }
   }
+
+  answer = stripFakeCitationLinks(answer);
+  botDiv.textContent = answer;
 
   if (weak) botDiv.classList.add("weak-evidence");
   renderSources(botDiv, sources);

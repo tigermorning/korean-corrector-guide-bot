@@ -3,7 +3,16 @@ import { loadVectorstore, buildSearchIndex, hybridSearch, topCosine } from "./li
 import * as ollamaEngine from "./lib/ollama.js";
 import * as geminiEngine from "./lib/gemini.js";
 import { extractFirstJson } from "./lib/ollama.js";
-import { REFUSAL_MARKER, buildSystemPrompt, buildJudgePrompt, normalizeJudgeScore } from "./lib/prompts.js";
+import {
+  REFUSAL_MARKER,
+  buildSystemPrompt,
+  buildJudgePrompt,
+  normalizeJudgeScore,
+  mentionsCompetitor,
+  sanitizeCompetitorQuestion,
+  stripCompetitorSentences,
+  COMPETITOR_DISCLAIMER,
+} from "./lib/prompts.js";
 
 // EmbeddingGemma 공식 쿼리 프롬프트(문서 쪽은 scripts/build_vectorstore.mjs의
 // documentPrefix와 짝을 이룬다 — 둘 다 안 지키면 벡터 공간이 어긋난다).
@@ -165,6 +174,15 @@ function appendMessage(role, text) {
   return div;
 }
 
+/** 검색 후보 전부(최대 15개)를 다 보여주면 안 쓴 근거까지 뒤섞여 오히려
+ * 신뢰가 떨어진다 — 답변이 실제로 [id]로 인용한 것만 출처 칩으로 보인다.
+ * 하나도 인용 안 했으면(형식을 안 지킨 답변) 점수 상위 3개로 대신한다. */
+function citedSources(answer, sources) {
+  const cited = sources.filter((s) => answer.includes(`[${s.id}]`));
+  if (cited.length) return cited;
+  return [...sources].sort((a, b) => b.score - a.score).slice(0, 3);
+}
+
 function renderSources(container, sources) {
   const wrap = document.createElement("div");
   wrap.className = "sources";
@@ -291,9 +309,16 @@ async function handleAsk(question) {
   el.sendBtn.disabled = true;
   el.questionInput.disabled = true;
 
-  const queryOutput = await extractor(QUERY_PREFIX + question, { pooling: "mean", normalize: true });
+  // 경쟁사 이름이 섞인 질문은 모델에 넘기기 전에 걸러낸다 — 프롬프트 지시만으론
+  // 실제 존재하는 서비스에 대한 근거 없는 주장을 못 막는다는 게 실측으로 두 번
+  // 확인됐다(docs/EXPERIMENTS.md 사이클 7). 모델 컨텍스트에 이름 자체가 없으면
+  // 그걸 화제로 삼을 트리거도 사라진다.
+  const isCompetitorQ = mentionsCompetitor(question);
+  const effectiveQuestion = sanitizeCompetitorQuestion(question);
+
+  const queryOutput = await extractor(QUERY_PREFIX + effectiveQuestion, { pooling: "mean", normalize: true });
   const queryVector = Array.from(queryOutput.data);
-  const sources = hybridSearch(searchIndex, queryVector, question, {
+  const sources = hybridSearch(searchIndex, queryVector, effectiveQuestion, {
     vectorTopN: VECTOR_TOP_N,
     bm25TopN: BM25_TOP_N,
   });
@@ -307,7 +332,7 @@ async function handleAsk(question) {
   try {
     const messages = [
       { role: "system", content: buildSystemPrompt(sources, { weak }) },
-      { role: "user", content: question },
+      { role: "user", content: effectiveQuestion },
     ];
     for await (const delta of engine.streamChat({ ...engine.params, messages, signal: currentAbort.signal })) {
       answer += delta;
@@ -323,16 +348,18 @@ async function handleAsk(question) {
       el.sendBtn.disabled = false;
       el.questionInput.disabled = false;
       el.cancelBtn.style.display = "none";
-      renderSources(botDiv, sources);
+      renderSources(botDiv, citedSources(answer, sources));
       return;
     }
   }
 
   answer = stripFakeCitationLinks(answer);
+  answer = stripCompetitorSentences(answer);
+  if (isCompetitorQ) answer = COMPETITOR_DISCLAIMER + answer;
   botDiv.textContent = answer;
 
   if (weak) botDiv.classList.add("weak-evidence");
-  renderSources(botDiv, sources);
+  renderSources(botDiv, citedSources(answer, sources));
   renderBadges(botDiv, { weak, pending: true });
   const isRefusal = answer.includes(REFUSAL_MARKER);
   renderFeedback(botDiv, { question, answer, weak, isRefusal, sources: sources.map((s) => s.id) });

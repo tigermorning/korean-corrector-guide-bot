@@ -1,0 +1,176 @@
+[
+  {
+    "id": "h01",
+    "question": "이거 어케 씀?",
+    "paraphrases": [
+      ") 이거 어떻게 만들어지나요?",
+      ") 만드는 방법을 설명해주세요"
+    ],
+    "gold": [
+      "usage-overview-how-to-use"
+    ],
+    "baseline_top1_cosine": 0.6756970128158338,
+    "baseline_hit": false,
+    "expanded_top1_cosine": 0.6756970128158338,
+    "expanded_hit": false
+  },
+  {
+    "id": "h02",
+    "question": "맞춤법 봐주는거 맞아요?",
+    "paraphrases": [
+      "맞춤법 오류 수정이 가능한가요?"
+    ],
+    "gold": [
+      "usage-readme-supported-formats-basis"
+    ],
+    "baseline_top1_cosine": 0.7525805106298986,
+    "baseline_hit": true,
+    "expanded_top1_cosine": 0.7525805106298986,
+    "expanded_hit": false
+  },
+  {
+    "id": "h03",
+    "question": "자막 넣으면 다 고쳐줘요?",
+    "paraphrases": [
+      "자막이 들어간다면 수정할까요?",
+      "자막 추가 시 수정 가능합니까?"
+    ],
+    "gold": [
+      "usage-index-auto-fix-basis"
+    ],
+    "baseline_top1_cosine": 0.723438624471055,
+    "baseline_hit": false,
+    "expanded_top1_cosine": 0.7283754026330466,
+    "expanded_hit": false
+  },
+  {
+    "id": "h04",
+    "question": "사투리도 고쳐줌?",
+    "paraphrases": [
+      "사투리를 고치는지 물어보는군요?",
+      "그런 말로 사투리 수정 요청 해볼까?"
+    ],
+    "gold": [
+      "usage-index-dialect-untouched",
+      "prd-dialect-core-principle"
+    ],
+    "baseline_top1_cosine": 0.67731652488289,
+    "baseline_hit": true,
+    "expanded_top1_cosine": 0.7053323499711197,
+    "expanded_hit": true
+  },
+  {
+    "id": "h05",
+    "question": "왜 이건 안고쳐줌",
+    "paraphrases": [
+      "이걸 어떻게 고쳐야 하는가",
+      "이건 어떤 방식으로 수정되어야 하는지"
+    ],
+    "gold": [],
+    "baseline_top1_cosine": 0.6430184790717025,
+    "baseline_hit": null,
+    "expanded_top1_cosine": 0.6875432429157939,
+    "expanded_hit": null
+  },
+  {
+    "id": "h06",
+    "question": "파일 몇개까지 올려요",
+    "paraphrases": [
+      "몇 개의 파일을 업로드할 수 있나요?",
+      "최대 얼마의 파일들을 올리겠습니까?"
+    ],
+    "gold": [
+      "usage-api-upload-size-limit"
+    ],
+    "baseline_top1_cosine": 0.6894359050037298,
+    "baseline_hit": true,
+    "expanded_top1_cosine": 0.7402627673699967,
+    "expanded_hit": true
+  },
+  {
+    "id": "h07",
+    "question": "확인해야된다는게 무슨뜻이야",
+    "paraphrases": [
+      ") 확인해야하다는 뜻은 무엇인가",
+      ") 확인되어야 하는 것은 무엇일까요"
+    ],
+    "gold": [
+      "usage-index-ambiguous-ask"
+    ],
+    "baseline_top1_cosine": 0.6563821433868374,
+    "baseline_hit": true,
+    "expanded_top1_cosine": 0.6644152220615596,
+    "expanded_hit": true
+  },
+  {
+    "id": "h08",
+    "question": "이거 무료임?",
+    "paraphrases": [
+      "이건 무료냐고",
+      "무료인가요"
+    ],
+    "gold": [],
+    "baseline_top1_cosine": 0.5876165336018362,
+    "baseline_hit": null,
+    "expanded_top1_cosine": 0.5876165336018362,
+    "expanded_hit": null
+  },
+  {
+    "id": "h09",
+    "question": "제 파일 어디로 가나요 저장되나요",
+    "paraphrases": [
+      "파일을 어디로 보내고 있나요?",
+      "제 파일을 저장할 예정인가요?"
+    ],
+    "gold": [
+      "usage-index-result-link-sharing"
+    ],
+    "baseline_top1_cosine": 0.6638760202347144,
+    "baseline_hit": true,
+    "expanded_top1_cosine": 0.6638760202347144,
+    "expanded_hit": true
+  },
+  {
+    "id": "h10",
+    "question": "왜 이상한말로바뀜",
+    "paraphrases": [
+      "왜 잘못된 말을 발음했니",
+      "왜 이상한 말을 말했어"
+    ],
+    "gold": [],
+    "baseline_top1_cosine": 0.6321442742216008,
+    "baseline_hit": null,
+    "expanded_top1_cosine": 0.6543573505766075,
+    "expanded_hit": null
+  },
+  {
+    "id": "h11",
+    "question": "영어도 되나요",
+    "paraphrases": [
+      "영어도 가능하냐?",
+      "영어가 가능하냐?"
+    ],
+    "gold": [
+      "usage-readme-supported-formats-basis"
+    ],
+    "baseline_top1_cosine": 0.6258551072462816,
+    "baseline_hit": false,
+    "expanded_top1_cosine": 0.6258551072462816,
+    "expanded_hit": false
+  },
+  {
+    "id": "h12",
+    "question": "붙여넣기 어케함",
+    "paraphrases": [
+      "복사해서 붙여넣어 볼 수 없나요",
+      "붙여넣기 방법 알려주세요"
+    ],
+    "gold": [
+      "usage-paste-textbox"
+    ],
+    "baseline_top1_cosine": 0.7167265533602118,
+    "baseline_hit": true,
+    "expanded_top1_cosine": 0.7176829409798107,
+    "expanded_hit": true
+  }
+]

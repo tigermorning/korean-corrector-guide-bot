@@ -1,0 +1,12 @@
+{"id": "h01", "question": "이거 어케 씀?", "gold_chunk_ids": ["usage-overview-how-to-use"]}
+{"id": "h02", "question": "맞춤법 봐주는거 맞아요?", "gold_chunk_ids": ["usage-readme-supported-formats-basis"]}
+{"id": "h03", "question": "자막 넣으면 다 고쳐줘요?", "gold_chunk_ids": ["usage-index-auto-fix-basis"]}
+{"id": "h04", "question": "사투리도 고쳐줌?", "gold_chunk_ids": ["usage-index-dialect-untouched", "prd-dialect-core-principle"]}
+{"id": "h05", "question": "왜 이건 안고쳐줌", "gold_chunk_ids": []}
+{"id": "h06", "question": "파일 몇개까지 올려요", "gold_chunk_ids": ["usage-api-upload-size-limit"]}
+{"id": "h07", "question": "확인해야된다는게 무슨뜻이야", "gold_chunk_ids": ["usage-index-ambiguous-ask"]}
+{"id": "h08", "question": "이거 무료임?", "gold_chunk_ids": []}
+{"id": "h09", "question": "제 파일 어디로 가나요 저장되나요", "gold_chunk_ids": ["usage-index-result-link-sharing"]}
+{"id": "h10", "question": "왜 이상한말로바뀜", "gold_chunk_ids": []}
+{"id": "h11", "question": "영어도 되나요", "gold_chunk_ids": ["usage-readme-supported-formats-basis"]}
+{"id": "h12", "question": "붙여넣기 어케함", "gold_chunk_ids": ["usage-paste-textbox"]}

@@ -1,6 +1,8 @@
 import { pipeline } from "https://cdn.jsdelivr.net/npm/@huggingface/transformers@3.8.1";
 import { loadVectorstore, buildSearchIndex, hybridSearch, topCosine } from "./lib/search.js";
-import { streamChat, chatJSON, checkHealth, extractFirstJson } from "./lib/ollama.js";
+import * as ollamaEngine from "./lib/ollama.js";
+import * as geminiEngine from "./lib/gemini.js";
+import { extractFirstJson } from "./lib/ollama.js";
 import { REFUSAL_MARKER, buildSystemPrompt, buildJudgePrompt, normalizeJudgeScore } from "./lib/prompts.js";
 
 // EmbeddingGemma 공식 쿼리 프롬프트(문서 쪽은 scripts/build_vectorstore.mjs의
@@ -25,15 +27,69 @@ const el = {
   questionInput: document.getElementById("questionInput"),
   sendBtn: document.getElementById("sendBtn"),
   cancelBtn: document.getElementById("cancelBtn"),
+  engineSelect: document.getElementById("engineSelect"),
+  ollamaFields: document.getElementById("ollamaFields"),
+  geminiFields: document.getElementById("geminiFields"),
   baseUrlInput: document.getElementById("baseUrlInput"),
   modelInput: document.getElementById("modelInput"),
+  geminiKeyInput: document.getElementById("geminiKeyInput"),
+  geminiModelInput: document.getElementById("geminiModelInput"),
 };
 
 // 설정값은 localStorage에 남겨 새로고침해도 다시 안 적게 한다.
 el.baseUrlInput.value = localStorage.getItem("guidebot_base_url") || el.baseUrlInput.value;
 el.modelInput.value = localStorage.getItem("guidebot_model") || el.modelInput.value;
+el.engineSelect.value = localStorage.getItem("guidebot_engine") || el.engineSelect.value;
+el.geminiKeyInput.value = localStorage.getItem("guidebot_gemini_key") || "";
+el.geminiModelInput.value = localStorage.getItem("guidebot_gemini_model") || el.geminiModelInput.value;
+
 el.baseUrlInput.addEventListener("change", () => localStorage.setItem("guidebot_base_url", el.baseUrlInput.value));
 el.modelInput.addEventListener("change", () => localStorage.setItem("guidebot_model", el.modelInput.value));
+el.geminiKeyInput.addEventListener("change", () => localStorage.setItem("guidebot_gemini_key", el.geminiKeyInput.value));
+el.geminiModelInput.addEventListener("change", () => localStorage.setItem("guidebot_gemini_model", el.geminiModelInput.value));
+
+function updateEngineFieldsVisibility() {
+  const isGemini = el.engineSelect.value === "gemini";
+  el.ollamaFields.hidden = isGemini;
+  el.geminiFields.hidden = !isGemini;
+}
+el.engineSelect.addEventListener("change", () => {
+  localStorage.setItem("guidebot_engine", el.engineSelect.value);
+  updateEngineFieldsVisibility();
+  refreshEngineBanner();
+});
+updateEngineFieldsVisibility();
+
+/** 화면 입력값을 읽어 현재 선택된 엔진의 공통 인터페이스를 만든다. */
+function currentEngine() {
+  if (el.engineSelect.value === "gemini") {
+    const apiKey = el.geminiKeyInput.value.trim();
+    const model = el.geminiModelInput.value.trim();
+    return {
+      name: "gemini",
+      ready: Boolean(apiKey && model),
+      notReadyMessage: "먼저 위 '엔진 설정'에서 Gemini API 키와 모델 이름을 입력하세요.",
+      params: { apiKey, model },
+      streamChat: geminiEngine.streamChat,
+      chatJSON: geminiEngine.chatJSON,
+      checkHealth: () => geminiEngine.checkHealth(apiKey),
+      bannerText: (reason) => `Gemini API에 연결할 수 없습니다 (${reason}). API 키가 올바른지 확인하세요.`,
+    };
+  }
+  const baseUrl = el.baseUrlInput.value.trim();
+  const model = el.modelInput.value.trim();
+  return {
+    name: "ollama",
+    ready: Boolean(model),
+    notReadyMessage: "먼저 위 '엔진 설정'에서 Ollama 모델 이름을 입력하세요.",
+    params: { baseUrl, model },
+    streamChat: ollamaEngine.streamChat,
+    chatJSON: ollamaEngine.chatJSON,
+    checkHealth: () => ollamaEngine.checkHealth(baseUrl),
+    bannerText: (reason) =>
+      `로컬 Ollama(${baseUrl})에 연결할 수 없습니다 (${reason}). ollama serve가 실행 중인지, CORS(OLLAMA_ORIGINS) 설정이 됐는지 확인하세요.`,
+  };
+}
 
 let searchIndex = null;
 let extractor = null;
@@ -64,27 +120,33 @@ async function initEngine() {
     el.sendBtn.disabled = false;
     el.questionInput.focus();
 
-    await refreshOllamaBanner();
+    await refreshEngineBanner();
   } catch (err) {
     console.error(err);
     el.engineStatus.firstChild.textContent = `엔진 초기화 실패: ${err.message}`;
   }
 }
 
-/** GET /api/tags로 Ollama 상태를 확인해, "엔진 꺼짐"과 "생성 실패"를 구분한다. */
-async function refreshOllamaBanner() {
-  const baseUrl = el.baseUrlInput.value.trim();
-  const health = await checkHealth(baseUrl);
+/** 엔진(Ollama의 /api/tags 또는 Gemini의 키 확인)이 켜져 있는지 확인해,
+ * "엔진 꺼짐/키 오류"와 "생성 실패"를 구분한다. */
+async function refreshEngineBanner() {
+  const engine = currentEngine();
+  if (!engine.ready) {
+    el.ollamaBanner.hidden = false;
+    el.ollamaBannerText.textContent = engine.notReadyMessage;
+    return false;
+  }
+  const health = await engine.checkHealth();
   if (health.ok) {
     el.ollamaBanner.hidden = true;
   } else {
     el.ollamaBanner.hidden = false;
-    el.ollamaBannerText.textContent = `로컬 Ollama(${baseUrl})에 연결할 수 없습니다 (${health.reason}). ollama serve가 실행 중인지, CORS(OLLAMA_ORIGINS) 설정이 됐는지 확인하세요.`;
+    el.ollamaBannerText.textContent = engine.bannerText(health.reason);
   }
   return health.ok;
 }
 
-el.ollamaRetryBtn.addEventListener("click", refreshOllamaBanner);
+el.ollamaRetryBtn.addEventListener("click", refreshEngineBanner);
 
 function appendMessage(role, text) {
   const div = document.createElement("div");
@@ -198,22 +260,21 @@ function renderFeedback(container, record) {
   container.appendChild(wrap);
 }
 
-async function judgeAnswer({ baseUrl, model, question, answer, sources }) {
+async function judgeAnswer(engine, { question, answer, sources }) {
   const judgePrompt = buildJudgePrompt({ question, answer, sources });
-  const raw = await chatJSON({ baseUrl, model, messages: [{ role: "user", content: judgePrompt }] });
+  const raw = await engine.chatJSON({ ...engine.params, messages: [{ role: "user", content: judgePrompt }] });
   const parsed = extractFirstJson(raw) ?? JSON.parse(raw);
   if (!parsed) return null;
   return { ...parsed, score: normalizeJudgeScore(parsed.score) };
 }
 
 async function handleAsk(question) {
-  const baseUrl = el.baseUrlInput.value.trim();
-  const model = el.modelInput.value.trim();
-  if (!model) {
-    appendMessage("bot", "먼저 위 '엔진 설정'에서 Ollama 모델 이름을 입력하세요.");
+  const engine = currentEngine();
+  if (!engine.ready) {
+    appendMessage("bot", engine.notReadyMessage);
     return;
   }
-  if (!(await refreshOllamaBanner())) {
+  if (!(await refreshEngineBanner())) {
     return; // 배너가 이미 상태를 보여준다 — 생성 실패로 오해하지 않도록 여기서 멈춘다.
   }
 
@@ -240,7 +301,7 @@ async function handleAsk(question) {
       { role: "system", content: buildSystemPrompt(sources, { weak }) },
       { role: "user", content: question },
     ];
-    for await (const delta of streamChat({ baseUrl, model, messages, signal: currentAbort.signal })) {
+    for await (const delta of engine.streamChat({ ...engine.params, messages, signal: currentAbort.signal })) {
       answer += delta;
       botDiv.textContent = answer;
     }
@@ -272,7 +333,7 @@ async function handleAsk(question) {
 
   const badgesRow = botDiv.querySelector(".badges");
   try {
-    const verdict = await judgeAnswer({ baseUrl, model, question, answer, sources });
+    const verdict = await judgeAnswer(engine, { question, answer, sources });
     // refusal 필드는 판정 모델의 자기 보고보다 실제 답변 텍스트를 더 신뢰한다
     // (작은 모델이 이 판단을 틀리는 경우가 실측으로 확인됨, docs/EXPERIMENTS.md).
     const corrected = verdict ? { ...verdict, refusal: isRefusal } : null;

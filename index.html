@@ -15,22 +15,47 @@
     </p>
 
     <details class="settings">
-      <summary>엔진 설정 (로컬 Ollama)</summary>
+      <summary>엔진 설정</summary>
       <div class="row">
-        <label for="baseUrlInput">서버 주소</label>
-        <input id="baseUrlInput" type="text" value="http://localhost:11434" />
+        <label for="engineSelect">엔진</label>
+        <select id="engineSelect">
+          <option value="ollama">로컬 Ollama (무료, 설치 필요)</option>
+          <option value="gemini">Gemini API (키 필요, 브라우저에서 직접 호출)</option>
+        </select>
       </div>
-      <div class="row">
-        <label for="modelInput">모델 이름</label>
-        <input id="modelInput" type="text" placeholder="예: qwen3.5:2b" value="qwen3.5:2b" />
+      <div id="ollamaFields">
+        <div class="row">
+          <label for="baseUrlInput">서버 주소</label>
+          <input id="baseUrlInput" type="text" value="http://localhost:11434" />
+        </div>
+        <div class="row">
+          <label for="modelInput">모델 이름</label>
+          <input id="modelInput" type="text" placeholder="예: qwen3.5:2b" value="qwen3.5:2b" />
+        </div>
+        <p class="subtitle" style="margin-top:8px">
+          로컬에서 <code>ollama serve</code>를 실행 중이어야 합니다. 이 페이지가 다른
+          origin(GitHub Pages 등)에서 열렸다면 CORS 허용이 필요합니다 —
+          <code>OLLAMA_ORIGINS</code> 환경변수를 설정한 뒤 Ollama를 재시작하세요.
+          자세한 설정법은 저장소 README를 참고하세요. Chrome·Edge를 권장하며,
+          Safari에서는 Ollama 연결과 임베딩(WASM)이 불안정할 수 있습니다.
+        </p>
       </div>
-      <p class="subtitle" style="margin-top:8px">
-        로컬에서 <code>ollama serve</code>를 실행 중이어야 합니다. 이 페이지가 다른
-        origin(GitHub Pages 등)에서 열렸다면 CORS 허용이 필요합니다 —
-        <code>OLLAMA_ORIGINS</code> 환경변수를 설정한 뒤 Ollama를 재시작하세요.
-        자세한 설정법은 저장소 README를 참고하세요. Chrome·Edge를 권장하며,
-        Safari에서는 Ollama 연결과 임베딩(WASM)이 불안정할 수 있습니다.
-      </p>
+      <div id="geminiFields" hidden>
+        <div class="row">
+          <label for="geminiKeyInput">API 키</label>
+          <input id="geminiKeyInput" type="password" placeholder="AI Studio에서 발급받은 키" autocomplete="off" />
+        </div>
+        <div class="row">
+          <label for="geminiModelInput">모델 이름</label>
+          <input id="geminiModelInput" type="text" placeholder="예: gemini-2.5-flash" value="gemini-2.5-flash" />
+        </div>
+        <p class="subtitle" style="margin-top:8px">
+          이 페이지가 브라우저에서 키를 직접 써서 Google 서버를 호출합니다 — 서버가
+          중간에서 키를 숨겨주지 않으므로, 브라우저 개발자도구의 네트워크 탭에서
+          키가 그대로 보입니다. 키는 이 브라우저의 localStorage에만 저장되고
+          Google 엔드포인트 외에는 전송되지 않습니다.
+        </p>
+      </div>
     </details>
 
     <div id="engineStatus">

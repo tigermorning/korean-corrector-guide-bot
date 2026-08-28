@@ -1,0 +1,15 @@
+{
+  "note": "n01/n02는 Gemini 무료 티어 일일 쿼터(gemini-3.6-flash, 20회/일) 초과로 미완료. 콘솔 로그에서 복원한 6문항 결과.",
+  "rows": [
+    { "id": "u01", "ollama": { "genMs": 7157, "answerLen": 613, "score": 85 }, "gemini": { "genMs": 70971, "answerLen": 192, "score": 100 } },
+    { "id": "u06", "ollama": { "genMs": 1183, "answerLen": 159, "score": 95 }, "gemini": { "genMs": 23996, "answerLen": 187, "score": 100 } },
+    { "id": "u09", "ollama": { "genMs": 3777, "answerLen": 869, "score": 90 }, "gemini": { "genMs": 82471, "answerLen": 456, "score": 100 } },
+    { "id": "d01", "ollama": { "genMs": 5013, "answerLen": 1128, "score": 90 }, "gemini": { "genMs": 6812, "answerLen": 224, "score": 100 } },
+    { "id": "d08", "ollama": { "genMs": 4695, "answerLen": 1133, "score": 95 }, "gemini": { "genMs": 22342, "answerLen": 367, "score": 100 } },
+    { "id": "d09", "ollama": { "genMs": 1996, "answerLen": 329, "score": 60 }, "gemini": { "genMs": 21905, "answerLen": 267, "score": 100 } }
+  ],
+  "summary": {
+    "ollama": { "avgGenMs": 3970, "avgAnswerLen": 705, "avgScore": 85.8 },
+    "gemini": { "avgGenMs": 38083, "avgAnswerLen": 282, "avgScore": 100.0 }
+  }
+}

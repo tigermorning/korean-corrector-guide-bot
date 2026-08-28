@@ -1,0 +1,56 @@
+[
+  {
+    "id": "design-rule-based-intro",
+    "url": "https://github.com/tigermorning/korean-subtitle-corrector/blob/master/docs/DESIGN_PRINCIPLES.md#L3-L6",
+    "section": "설계 원칙 > 도입부",
+    "text": "이 교정기는 룰 기반 시스템이다(스스로 학습하는 신경망이 아니다). 그래서 '정보가 없어서' 오탐지하는 게 아니라, 가진 사전·규범 정보를 조회·판정하는 로직이 그 정보를 잘못 걸러낼 때 오탐지가 생긴다."
+  },
+  {
+    "id": "design-principle-1-fragment",
+    "url": "https://github.com/tigermorning/korean-subtitle-corrector/blob/master/docs/DESIGN_PRINCIPLES.md#L13-L15",
+    "section": "오탐지·과교정의 4가지 원리 > 원리 1: 조각 대조",
+    "text": "형태소 분석기가 쪼갠 토막만 사전과 대조하고, 그 토막을 포함하는 최대 사전-유효 구간을 확인하지 않으면 유효한 단어를 오탐지한다(예: '얄짤'→'얄짤없다', '수강'→'수강생'). 즉 단어 일부만 보고 틀렸다고 판단하는 오류다."
+  },
+  {
+    "id": "design-principle-2-ambiguous",
+    "url": "https://github.com/tigermorning/korean-subtitle-corrector/blob/master/docs/DESIGN_PRINCIPLES.md#L16-L19",
+    "section": "오탐지·과교정의 4가지 원리 > 원리 2: 모호할 때 자동 교정",
+    "text": "정답이 하나로 확정되지 않는데 자동으로 고치는 오류다(예: '본 집'과 '본집'은 둘 다 문법에 맞아 진짜 의미가 갈린다). 원칙은 '자동 교정은 정답이 100% 하나일 때만' 한다는 것이다."
+  },
+  {
+    "id": "design-principle-2-treasure-ship-case",
+    "url": "https://github.com/tigermorning/korean-subtitle-corrector/blob/master/docs/DESIGN_PRINCIPLES.md#L20-L29",
+    "section": "오탐지·과교정의 4가지 원리 > 원리 2 관련 사례 — '보물선/선투자'",
+    "text": "'보물 선투자를 했다'처럼, 좌우 두 방향으로 합칠 수 있는 단어가 겹쳐 알고리즘이 어느 쪽으로 합칠지 못 고르는 경우가 있다(보물+선=보물선 / 선+투자=선투자 둘 다 사전에 있음). 이런 경우는 확인 플래그조차 뜨지 않고 조용히 통과하는 커버리지 구멍이 있다 — 즉 실제로 틀린 입력도 잡아내지 못하는 경우가 있을 수 있다는 뜻이다. 이 문제는 아직 개선 방향이 정해지지 않았다(2026-08-28 기준 미해결, 백로그에 기록됨)."
+  },
+  {
+    "id": "design-principle-3-dictionary-collision",
+    "url": "https://github.com/tigermorning/korean-subtitle-corrector/blob/master/docs/DESIGN_PRINCIPLES.md#L30-L32",
+    "section": "오탐지·과교정의 4가지 원리 > 원리 3: 우연한 사전 충돌",
+    "text": "인접한 조각을 이어붙인 문자열이 우연히 무관한 표제어와 겹쳐서 생기는 오류다(예: '집'→'지브', '오고'+'하다'='오고하다'). 이 때문에 반드시 온전한 어휘 단위(어간+어미, 합성어 양쪽)로 확인하고 우연한 부분 문자열로는 판단하지 않는다."
+  },
+  {
+    "id": "design-principle-4-lookup-bug",
+    "url": "https://github.com/tigermorning/korean-subtitle-corrector/blob/master/docs/DESIGN_PRINCIPLES.md#L33-L34",
+    "section": "오탐지·과교정의 4가지 원리 > 원리 4: 조회 로직 버그",
+    "text": "이미 가진 사전 데이터를 잘못된 판정 로직이 버려서 생기는 오류다(예: '흩어지다'를 word_exists가 혼합 표제어를 통째로 비표준 처리하던 버그)."
+  },
+  {
+    "id": "design-affix-rules",
+    "url": "https://github.com/tigermorning/korean-subtitle-corrector/blob/master/docs/DESIGN_PRINCIPLES.md#L71-L83",
+    "section": "접사(하다/받다/당하다/시키다) 붙임 규칙",
+    "text": "동작성 명사(사전 뜻풀이에 동작·행위가 있는 명사, 예: 선물·배달·음악)에 하다/받다/당하다/시키다가 붙으면 붙여 쓴다. 접사는 '단일 명사'에만 붙는다 — '보이스 피싱'처럼 명사구(띄어 쓴 여러 단어)에는 못 붙인다(한 단어로 등재되면 그때부터 붙임). '되다'는 다르다 — 피동 조건을 요구하므로 '도움 되다'는 피동이 아니라 띄어 쓴다(피동은 '도움받다'로 표현). '못 하다'(부정, 띄움)와 '못하다'(능력 부족, 붙임)는 뜻으로 갈린다. 보조 용언 붙임 허용 구간(단일어+아/어+보조용언, 예: '미워 죽다'→'미워죽다')은 붙일 수 있지만 허용이라 띄어 둬도 맞다."
+  },
+  {
+    "id": "design-yo-particle",
+    "url": "https://github.com/tigermorning/korean-subtitle-corrector/blob/master/docs/DESIGN_PRINCIPLES.md#L98-L99",
+    "section": "요/이요, 의존명사 vs 어미 > '요'/'이요'",
+    "text": "'당신 아들요'와 '당신 아들이요'는 둘 다 맞는다 — 반말 문장에 '요'만 붙이면 해요체가 되며, 받침 뒤 '이요'도 허용된다. 둘 다 맞으므로 어느 쪽도 오류로 플래그하지 않는다."
+  },
+  {
+    "id": "design-dependent-noun-vs-ending",
+    "url": "https://github.com/tigermorning/korean-subtitle-corrector/blob/master/docs/DESIGN_PRINCIPLES.md#L100-L103",
+    "section": "요/이요, 의존명사 vs 어미 > '데'/'-ㄹ걸' 판정",
+    "text": "'완성하는 데'의 '데'는 의존명사라 띄운다 — 관형형(완성하는) 뒤에서 '곳/경우/것'으로 대체되면 의존명사다(한글맞춤법 제42항). '모를걸'의 '-ㄹ걸'은 종결어미라 붙인다 — 추측·후회를 나타내며 '것을'로 대체되지 않고 문장을 끝맺는다. 판정 기준: '것/경우'로 대체 가능하면 의존명사(띄움), 문장을 종결하는 어미면 붙임."
+  }
+]

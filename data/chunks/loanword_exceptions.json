@@ -1,0 +1,68 @@
+[
+  {
+    "id": "lw-intro",
+    "url": "https://github.com/tigermorning/korean-subtitle-corrector/blob/master/docs/LOANWORD_EXCEPTIONS.md#L1-L11",
+    "section": "외래어 표기법 — 예외 규정 모음 > 도입부",
+    "text": "외래어 표기법은 제1장 기본 원칙 아래 언어별 세칙이 붙고, 그 세칙에 다시 예외가 붙는다. 원칙만 기계에 넣으면 예외를 전부 위반으로 잘못 판정한다 — 이 문서는 그 예외들을 모아 둔 것이다. 근거는 국립국어원 어문 규범 「외래어 표기법」 제2장 표기 일람표·제3장 표기 세칙과 번역가 실무 자료다."
+  },
+  {
+    "id": "lw-sec1-basic-principles",
+    "url": "https://github.com/tigermorning/korean-subtitle-corrector/blob/master/docs/LOANWORD_EXCEPTIONS.md#L15-L28",
+    "section": "1. 기본 원칙과 그 예외",
+    "text": "제3항(받침은 ㄱㄴㄹㅁㅂㅅㅇ만)의 예: '커피숖'(x)→'커피숍'(o). 제4항(파열음에 된소리 금지)의 예외: 중국·일본·태국·베트남 등 동아시아 언어는 된소리를 허용한다('똠양꿍', '마오쩌둥') — 언어를 모른 채 된소리 검사를 걸면 이런 언어 표기를 전부 오탐지로 잡으므로 가장 위험한 예외다. 제5항(굳어진 외래어는 관용 존중)의 예외: 관용 인정은 국어사전이나 국어원 용례에 등록된 어휘로만 제한한다('피애노'(x)→'피아노'(o)). 사전이 '규범 표기는 미확정'이라고 하면 표준어로 인정하지 않고 표기법 원칙을 따른다('알콜'→'알코올')."
+  },
+  {
+    "id": "lw-sec2-english-plosives",
+    "url": "https://github.com/tigermorning/korean-subtitle-corrector/blob/master/docs/LOANWORD_EXCEPTIONS.md#L30-L49",
+    "section": "2. 영어 세칙의 예외 > 파열음, [ʃ]",
+    "text": "무성 파열음([p][t][k])은 어말에서 단모음 뒤면 받침으로 적고('유닛', '셔틀콕'), 그 외에는 '으'를 붙인다('플루트', '케이크'). 중간 위치는 단모음+[p t k]+(l r m n이 아닌 자음)이면 받침('냅킨', '풋볼'), 그 외는 '으' 붙임('디프레션'). 유성 파열음([b][d][g])은 무조건 '으'를 붙인다('로브스터', '불도그') — 단 '로브스터'는 2016년부터 '랍스터'도 허용된다. [ʃ]는 '쉬'를 쓰지 않고 모음 앞 '시'·'셰', 자음 앞 '슈', 단어 끝 '시'로 적는다('shrimp'는 '쉬림프'(x), '슈림프'(o))."
+  },
+  {
+    "id": "lw-sec2-english-other",
+    "url": "https://github.com/tigermorning/korean-subtitle-corrector/blob/master/docs/LOANWORD_EXCEPTIONS.md#L51-L62",
+    "section": "2. 영어 세칙의 예외 > 그 밖의 영어 예외",
+    "text": "철자가 's'로 끝나고 발음이 /z/면 '스'(James→제임스), /ʣ/면 '즈'. 발음이 /əʊ/·/oʊ/면 '오'로 적는다(snow→스노, snowman→스노맨, window→윈도). 철자가 'a'로 끝나고 발음이 /ə/면 '아'로 적는다(Sarah→세라, Jeremiah→제러마이아) — 단 'Mariah'는 유명세 때문에 예외로 '머라이어'. 철자가 'i'·'y'이고 발음이 /ə/면 '이'(recipe→레시피). '-ton'은 모두 '턴'(Newton→뉴턴). '-land'는 영어권 '랜드', 독일어권 '란트', 그 외 '란드'."
+  },
+  {
+    "id": "lw-sec3-names-places",
+    "url": "https://github.com/tigermorning/korean-subtitle-corrector/blob/master/docs/LOANWORD_EXCEPTIONS.md#L64-L78",
+    "section": "3. 인명·지명의 예외",
+    "text": "외국 지명은 현지음을 따르되(모스크바, 빈, 바르샤바), 관용이 현지음과 많이 다르면 관용을 따른다('덴 하흐'(x)→'헤이그'(o)). 중국 인명·지명은 1911년 신해혁명 기준으로 이전은 한자음, 이후는 중국어로 적는다('주윤발'(x)→'저우룬파'(o)). 일본 인명·지명은 언제나 일본어 발음('이등박문'(x)→'이토 히로부미'(o)). 중국·일본 지명은 관용과 현지음 둘 다 허용한다(동경/도쿄). 바다는 '해', 섬은 '섬'으로 통일한다. 'Mac'/'Mc'은 관용이 우선한다(MacArthur→맥아더)."
+  },
+  {
+    "id": "lw-sec4-trademark",
+    "url": "https://github.com/tigermorning/korean-subtitle-corrector/blob/master/docs/LOANWORD_EXCEPTIONS.md#L80-L89",
+    "section": "4. 상표명 — 외래어 표기법과 어긋난다",
+    "text": "외국 회사는 원칙적으로 외래어 표기법을 따르지만, 한국에 지사가 있으면 등록상표 표기를 따른다 — 예: '폴크스바겐'(x)→'폭스바겐'(o), '포르셰'(x)→'포르쉐'(o), '도요타'(x)→'토요타'(o). 표기법대로 고치면 오히려 등록상표를 틀리게 만든다."
+  },
+  {
+    "id": "lw-sec5-adjective-forms",
+    "url": "https://github.com/tigermorning/korean-subtitle-corrector/blob/master/docs/LOANWORD_EXCEPTIONS.md#L91-L95",
+    "section": "5. 형용사형은 발음대로 옮기지 않는다",
+    "text": "형용사형 표현은 발음을 그대로 옮기지 않고 원래 명사 표기를 쓴다 — 'Persian Architecture'는 '페르시안 건축'(x)이 아니라 '페르시아 건축'(o), 'Mexican Food'는 '멕시칸 음식'(x)이 아니라 '멕시코 음식'(o)."
+  },
+  {
+    "id": "lw-sec6-homograph",
+    "url": "https://github.com/tigermorning/korean-subtitle-corrector/blob/master/docs/LOANWORD_EXCEPTIONS.md#L97-L105",
+    "section": "6. 같은 원어, 다른 표기 — 뜻이 갈린다",
+    "text": "'type'은 타자기를 뜻하면 '타이프', 부류·형식을 뜻하면 '타입'이다. 'cut'은 잘라냄이면 '커트', 영상 용어(=숏)면 '컷'이다. 'shot'은 공을 침이면 '샷', 영상 용어(=컷)면 '숏'이다. 둘 다 맞는 표기이고 뜻이 다르므로 한쪽으로 자동 통일하면 뜻이 바뀐다."
+  },
+  {
+    "id": "lw-sec7-proper-noun-spacing",
+    "url": "https://github.com/tigermorning/korean-subtitle-corrector/blob/master/docs/LOANWORD_EXCEPTIONS.md#L107-L120",
+    "section": "7. 고유명사 띄어쓰기(국립국어원 내부 지침)",
+    "text": "요리·음료 이름은 다 붙인다(양고기안심스테이크, 아이스모히토). 식재료는 요리가 아니므로 띄운다(바닐라 챤탈리 크림). 외국 지명·도시명은 다 붙인다(뉴욕, 로스앤젤레스). 동식물 품종명은 다 붙인다(아프리카코끼리). 하이픈이 든 이름·두 낱말 성·관사·전치사는 붙인다(장클로드 반담, 다빈치) — 단 같은 'de'도 스페인어면 '데', 영어면 '드'로 언어에 따라 다르다."
+  },
+  {
+    "id": "lw-sec8-search-procedure",
+    "url": "https://github.com/tigermorning/korean-subtitle-corrector/blob/master/docs/LOANWORD_EXCEPTIONS.md#L122-L141",
+    "section": "8. 검색 절차 — 국적 파악이 1단계다",
+    "text": "외래어 표기를 확인하는 순서: 1단계 단어의 국적과 종류 파악(지명·인물인가, 고유명사인가 일반명사인가, 영어 일반명사면 영국 발음 기준) → 2단계 상표명·회사명이면 국내 등록 정보 확인(국어원 용례보다 우선) → 3단계 상표가 아니면 국어원 용례 검색 → 4단계 용례 없으면 영/독/불은 발음기호 확보, 그 외 언어는 한글라이즈 → 5단계 그래도 실패하면 용례 짜깁기와 실제 발음 듣기. 지금 이 교정기는 국적·언어 정보 없이 낱말만 보므로 이 절차를 자동으로 밟지는 못한다."
+  },
+  {
+    "id": "lw-sec9-search-tips",
+    "url": "https://github.com/tigermorning/korean-subtitle-corrector/blob/master/docs/LOANWORD_EXCEPTIONS.md#L143-L154",
+    "section": "9. 용례를 찾을 때",
+    "text": "국명·언어명이 매우 중요하다 — 국립국어원 '용례 찾기'에서 원어 표기 조건과 국명 조건을 겹쳐 걸면 같은 철자가 언어마다 다르게 적히는 것을 가를 수 있다. 이름이 통째로 안 나오면 검색을 짜깁기한다. 발음기호는 일반명사는 Longman·Collins 등, 고유명사는 Pronounce Names·Wikipedia, 상표명은 KIPRIS에서 확보한다."
+  }
+]

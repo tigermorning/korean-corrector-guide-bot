@@ -1,0 +1,19 @@
+{
+  "name": "korean-corrector-guide-bot",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "한국어 교정기 사용 안내 RAG 챗봇 — 벡터스토어 빌드 스크립트 (사이트 자체는 빌드 없는 순수 HTML+JS)",
+  "scripts": {
+    "build:vectorstore": "node scripts/build_vectorstore.mjs",
+    "eval": "node scripts/run_eval.mjs"
+  },
+  "devDependencies": {
+    "@huggingface/transformers": "^3.0.0"
+  },
+  "allowScripts": {
+    "onnxruntime-node@1.21.0": true,
+    "protobufjs@7.6.6": true,
+    "sharp@0.34.5": true
+  }
+}

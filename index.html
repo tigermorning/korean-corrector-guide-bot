@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>한국어 교정기 사용 안내 챗봇</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main>
+    <h1>한국어 교정기 사용 안내 챗봇</h1>
+    <p class="subtitle">
+      korean-subtitle-corrector 사용법과 설계 배경만 답합니다. 문서에 없는 내용은
+      모른다고 답하고, 답변마다 근거 문서와 자동 판정 결과를 함께 보여 줍니다.
+    </p>
+
+    <details class="settings">
+      <summary>엔진 설정 (로컬 Ollama)</summary>
+      <div class="row">
+        <label for="baseUrlInput">서버 주소</label>
+        <input id="baseUrlInput" type="text" value="http://localhost:11434" />
+      </div>
+      <div class="row">
+        <label for="modelInput">모델 이름</label>
+        <input id="modelInput" type="text" placeholder="예: qwen3.5:2b" value="qwen3.5:2b" />
+      </div>
+      <p class="subtitle" style="margin-top:8px">
+        로컬에서 <code>ollama serve</code>를 실행 중이어야 합니다. 이 페이지가 다른
+        origin(GitHub Pages 등)에서 열렸다면 CORS 허용이 필요합니다 —
+        <code>OLLAMA_ORIGINS</code> 환경변수를 설정한 뒤 Ollama를 재시작하세요.
+        자세한 설정법은 저장소 README를 참고하세요. Chrome·Edge를 권장하며,
+        Safari에서는 Ollama 연결과 임베딩(WASM)이 불안정할 수 있습니다.
+      </p>
+    </details>
+
+    <div id="engineStatus">
+      검색 엔진 준비 중...
+      <div class="bar"><div id="engineProgressBar"></div></div>
+    </div>
+
+    <div id="ollamaBanner" class="banner" hidden>
+      <span id="ollamaBannerText"></span>
+      <button id="ollamaRetryBtn">다시 시도</button>
+    </div>
+
+    <div id="chatLog"></div>
+
+    <div id="inputBar">
+      <input id="questionInput" type="text" placeholder="예: 자막이랑 일반 글은 왜 다르게 처리해?" disabled />
+      <button id="sendBtn" disabled>보내기</button>
+      <button id="cancelBtn">취소</button>
+    </div>
+  </main>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,25 @@
+{"id": "u01", "category": "usage", "question": "자막이랑 일반 글은 왜 다르게 처리해?", "gold_chunk_ids": ["usage-index-doctype-default"], "expect_refusal": false}
+{"id": "u02", "category": "usage", "question": "구두점 표기는 뭘 골라야 돼?", "gold_chunk_ids": ["usage-index-punct-default-keep"], "expect_refusal": false}
+{"id": "u03", "category": "usage", "question": "말줄임표 표기 옵션 뭐가 있어?", "gold_chunk_ids": ["usage-index-punct-ellipsis"], "expect_refusal": false}
+{"id": "u04", "category": "usage", "question": "어떤 파일 형식을 올릴 수 있어?", "gold_chunk_ids": ["usage-index-supported-formats", "usage-readme-supported-formats-basis"], "expect_refusal": false}
+{"id": "u05", "category": "usage", "question": "결과 링크는 다른 사람도 볼 수 있어?", "gold_chunk_ids": ["usage-index-result-link-sharing"], "expect_refusal": false}
+{"id": "u06", "category": "usage", "question": "왜 로컬에서만 실행해야 돼?", "gold_chunk_ids": ["usage-readme-local-only"], "expect_refusal": false}
+{"id": "u07", "category": "usage", "question": "API 키는 어디서 받아?", "gold_chunk_ids": ["usage-readme-env-keys"], "expect_refusal": false}
+{"id": "u08", "category": "usage", "question": "CLI로 어떻게 실행해?", "gold_chunk_ids": ["usage-readme-run-cli"], "expect_refusal": false}
+{"id": "u09", "category": "usage", "question": "언어 모델 패스가 뭐야?", "gold_chunk_ids": ["usage-readme-llm-pass"], "expect_refusal": false}
+{"id": "u10", "category": "usage", "question": "자막 위치 표기는 어떻게 지정해?", "gold_chunk_ids": ["usage-index-marker-position"], "expect_refusal": false}
+{"id": "u11", "category": "usage", "question": "고유명사 목록은 언제 써야 돼?", "gold_chunk_ids": ["usage-index-proper-noun-protect"], "expect_refusal": false}
+{"id": "u12", "category": "usage", "question": "교정 끝나면 알림 와?", "gold_chunk_ids": ["usage-index-completion-notify"], "expect_refusal": false}
+{"id": "d01", "category": "design", "question": "왜 사투리는 자동으로 안 고쳐줘?", "gold_chunk_ids": ["prd-dialect-core-principle"], "expect_refusal": false}
+{"id": "d02", "category": "design", "question": "왜 이 표기는 플래그만 뜨고 자동으로 안 고쳐져?", "gold_chunk_ids": ["kl-proper-noun-nnp-flag", "design-principle-2-ambiguous"], "expect_refusal": false}
+{"id": "d03", "category": "design", "question": "보조 용언 띄어쓰기 기준이 뭐야?", "gold_chunk_ids": ["prd-spacing-mode-values"], "expect_refusal": false}
+{"id": "d04", "category": "design", "question": "왜 반드시/반듯이 같은 헷갈리는 표현은 자동으로 안 잡아줘?", "gold_chunk_ids": ["kl-allowance-and-confusable-removed"], "expect_refusal": false}
+{"id": "d05", "category": "design", "question": "왜 반팔은 그냥 두고 간질은 자동으로 고쳐줘?", "gold_chunk_ids": ["kl-discriminatory-vs-purified"], "expect_refusal": false}
+{"id": "d06", "category": "design", "question": "고유명사 띄어쓰기가 문서 안에서 섞여 있으면 어떻게 처리해?", "gold_chunk_ids": ["prd-term-spacing-rules-table", "prd-term-spacing-bidirectional-update"], "expect_refusal": false}
+{"id": "d07", "category": "design", "question": "외래어 표기법에서 된소리를 못 쓰게 하는 원칙에 예외가 있어?", "gold_chunk_ids": ["lw-sec1-basic-principles"], "expect_refusal": false}
+{"id": "d08", "category": "design", "question": "왜 AI로 고치지 않고 규칙 기반으로만 만들었어?", "gold_chunk_ids": ["design-rule-based-intro"], "expect_refusal": false}
+{"id": "d09", "category": "design", "question": "보물선/선투자처럼 애매한 경우는 지금 어떻게 처리돼?", "gold_chunk_ids": ["design-principle-2-treasure-ship-case"], "expect_refusal": false}
+{"id": "d10", "category": "design", "question": "타입이랑 타이프는 뭐가 달라?", "gold_chunk_ids": ["lw-sec6-homograph"], "expect_refusal": false}
+{"id": "n01", "category": "out_of_scope", "question": "오늘 서울 날씨 어때?", "gold_chunk_ids": [], "expect_refusal": true}
+{"id": "n02", "category": "out_of_scope", "question": "비트코인 시세 어때?", "gold_chunk_ids": [], "expect_refusal": true}
+{"id": "n03", "category": "out_of_scope", "question": "김치찌개 레시피 알려줘", "gold_chunk_ids": [], "expect_refusal": true}

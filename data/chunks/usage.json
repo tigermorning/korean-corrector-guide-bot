@@ -1,5 +1,11 @@
 [
   {
+    "id": "usage-overview-how-to-use",
+    "url": "https://github.com/tigermorning/korean-subtitle-corrector/blob/master/README.md#L78-L84",
+    "section": "가장 쉬운 사용법 개요",
+    "text": "이 교정기를 쓰는 가장 쉬운 방법은 웹 화면이다. 컴퓨터를 잘 몰라도 세 단계만 하면 된다: 1단계 파일 선택(자막이나 문서 파일을 올린다), 2단계 교정 옵션(대부분 기본값 그대로 두어도 된다 — 화면에 '그대로 두어도 됩니다'라고 안내되어 있다), 3단계 '교정하기' 버튼을 누른다. 웹 화면을 처음 켜려면 컴퓨터에서 한 번 `.venv\\Scripts\\uvicorn subtitle_corrector.api:app --reload` 명령을 실행한 뒤 브라우저에서 http://127.0.0.1:8000 에 접속하면 되고, 그 뒤로는 이 화면만 계속 쓰면 된다. 명령줄(CLI)이나 프로그래밍 코드로 직접 API를 호출하는 방법은 개발자용이며 일반 사용자에게는 필요 없다."
+  },
+  {
     "id": "usage-index-dict-realtime",
     "url": "https://github.com/tigermorning/korean-subtitle-corrector/blob/master/static/index.html#L121",
     "section": "이 교정기가 하는 일 > 국립국어원 사전을 그때그때 조회해 판단합니다",

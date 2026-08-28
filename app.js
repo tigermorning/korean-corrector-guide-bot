@@ -218,7 +218,9 @@ async function handleAsk(question) {
   }
 
   appendMessage("user", question);
-  const botDiv = appendMessage("bot", "");
+  const botDiv = appendMessage("bot", "🔍 관련 문서 검색 중...");
+  el.sendBtn.disabled = true;
+  el.questionInput.disabled = true;
 
   const queryOutput = await extractor(QUERY_PREFIX + question, { pooling: "mean", normalize: true });
   const queryVector = Array.from(queryOutput.data);
@@ -228,8 +230,7 @@ async function handleAsk(question) {
   });
   const weak = topCosine(sources) < WEAK_EVIDENCE_THRESHOLD;
 
-  el.sendBtn.disabled = true;
-  el.questionInput.disabled = true;
+  botDiv.textContent = "💬 답변 생성 중...";
   el.cancelBtn.style.display = "inline-block";
   currentAbort = new AbortController();
 
